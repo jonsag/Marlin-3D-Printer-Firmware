@@ -184,7 +184,6 @@ Stepper directions, 750-765
 	
 Bed size and travel limits, 782-792
 ---------------
-This would also be where to set center  
 
 	// The size of the print bed
 	#define X_BED_SIZE 200
@@ -213,9 +212,10 @@ Bed levelling, 839-876
 	//#define AUTO_BED_LEVELING_BILINEAR
 	//#define AUTO_BED_LEVELING_UBL
 	//#define MESH_BED_LEVELING
-	
-	Bed levelling options, 912-923
+
+Bed levelling options, 912-923
 ---------------
+
 	  // Set the number of grid points per dimension.
 	  #define GRID_MAX_POINTS_X 3
 	  #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X

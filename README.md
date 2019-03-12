@@ -106,4 +106,29 @@ Save new value to EEPROM
 Higher value -> larger distance from bed  
 The above example will increase the distance from the bed, ie. the gap between nozzle and bed will be larger.  
 
+Set X/Y center
+---------------
+Home X and Y axes  
+>G28 X Y
 
+Set extruder at 0:0  
+>G1 X0 Y0
+
+Set extruder at bed center  
+>G1 X100 Y96
+
+if bed size is set to 200x192mm at lines 782-792 in Configuration.h in Marlin firmware  
+
+	// The size of the print bed
+	#define X_BED_SIZE 200
+	#define Y_BED_SIZE 192
+	
+Compensate with  
+
+	#define X_MIN_POS 0
+	#define Y_MIN_POS 0
+	...
+	#define X_MAX_POS X_BED_SIZE
+	#define Y_MAX_POS Y_BED_SIZE
+	
+	
