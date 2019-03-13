@@ -9,7 +9,7 @@ Includes BLTouch and T8 lead screws
 When compiling and uploading with Arduino IDE:  
 Set board:  
 Tools > Board > Arduino Mega 2560  
-Also set correct port  
+Also set correct port, ie /dev/tty/USB0  
 
 Testing and calibrating
 ===============
@@ -115,12 +115,12 @@ Set extruder at 0:0
 >G1 X0 Y0
 
 Set extruder at bed center  
->G1 X100 Y96
+>G1 X95 Y96
 
-if bed size is set to 200x192mm at lines 782-792 in Configuration.h in Marlin firmware  
+if bed size is set to 190x192mm at lines 782-792 in Configuration.h in Marlin firmware  
 
 	// The size of the print bed
-	#define X_BED_SIZE 200
+	#define X_BED_SIZE190
 	#define Y_BED_SIZE 192
 	
 Compensate with  
