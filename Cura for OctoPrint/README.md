@@ -10,22 +10,45 @@ Or use my configs on this page
 
 200-65, 0.2mm, 3perims, 40mmps, al
 ---------------
-Extruder temp: 200 C  
-Bed temp: 65 C  
+Extruder temp, C  
 
-Layer height: 0,2 mm  
-Wall thickness: 1,2 mm  
-Bottom thickness: 0,2 mm  
+	print_temperature = 200
+	
+Bed temp, C  
 
-Support: none  
-No of perimeters: 3  
+	print_bed_temperature = 65
 
-Print speed: 40 mm/s  
+Layer height, mm  
 
-Fill density: 30%  
+	layer_height = 0.2
+	
+Wall thickness, mm  
 
-Nozzle size: 0,3 mm  
-Filament diameter: 1,75 mm  
+	wall_thickness = 1.2
+
+Support  
+
+	support = None
+	
+Adhesion:  
+
+	platform_adhesion = None
+
+Print speed, mm/s  
+
+	print_speed = 40
+
+Fill density, %  
+
+	fill_density = 30
+
+Nozzle size, mm  
+
+	nozzle_size = 0.3
+	
+Filament diameter, mm  
+
+	filament_diameter = 1.75
 
 Start code:  
 
