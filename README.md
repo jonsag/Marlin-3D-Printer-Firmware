@@ -1,6 +1,6 @@
 # Marlin 3D Printer Firmware
 
-
+Everything in this repo is for Geeetech I3 Pro B  
 
 Marlin firmware for my Geeetech i3 Pro B with GT2560A+ board  
 ===============
