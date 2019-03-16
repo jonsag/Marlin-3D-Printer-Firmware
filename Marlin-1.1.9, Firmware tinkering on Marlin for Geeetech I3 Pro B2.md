@@ -3,7 +3,7 @@
 Configuration.h
 ===============
 
-Motherboard selection, 119-123
+Motherboard selection, 131-135
 ---------------
 	// The following define selects which electronics board you have.
 	// Please choose the name from boards.h that matches your setup
@@ -11,18 +11,18 @@ Motherboard selection, 119-123
 	  #define MOTHERBOARD BOARD_GT2560_REV_A_PLUS
 	#endif
 	
-Custom name, 125-127
+Custom name, 137-139
 ---------------
 	// Optional custom name for your RepStrap or other custom machine
 	// Displayed in the LCD "Ready" message
-	#define CUSTOM_MACHINE_NAME "Geeetech i3 Pro B"
+	#define CUSTOM_MACHINE_NAME "Geeetech I3 Pro B""
 
-Filament diameter, 139-140
+Filament diameter, 151-152
 ---------------
 	// Generally expected filament diameter (1.75, 2.85, 3.0, ...). Used for Volumetric, Filament Width Sensor, etc.
 	#define DEFAULT_NOMINAL_FILAMENT_DIA 1.75
 
-Temperature sensors, 243-294
+Temperature sensors, 264-319
 ---------------
 	/**
 	 * --NORMAL IS 4.7kohm PULLUP!-- 1kohm pullup can be used on hotend sensor, using correct resistor and table
@@ -37,9 +37,10 @@ Temperature sensors, 243-294
 	#define TEMP_SENSOR_2 0
 	#define TEMP_SENSOR_3 0
 	#define TEMP_SENSOR_4 0
-	#define TEMP_SENSOR_BED 11
+	#define TEMP_SENSOR_BED 1
+	#define TEMP_SENSOR_CHAMBER 0
 	
-Min temps, 315-323
+Min temps, 340-348
 ---------------
 	// The minimal temperature defines the temperature below which the heater will not be enabled It is used
 	// to check that the wiring to the thermistor is not broken.
@@ -51,17 +52,16 @@ Min temps, 315-323
 	#define HEATER_4_MINTEMP 5
 	#define BED_MINTEMP 8
 
-Steps/mm, 527-533
+Steps/mm, 606-611
 ---------------
 	/**
 	 * Default Axis Steps Per Unit (steps/mm)
 	 * Override with M92
 	 *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
 	 */
-	//#define DEFAULT_AXIS_STEPS_PER_UNIT   { 81.5, 81.5, 2577.46, 94 }
-	#define DEFAULT_AXIS_STEPS_PER_UNIT   { 81.5, 81.5, 400.69, 93 }
-
-Max feed rate, 534-539
+	#define DEFAULT_AXIS_STEPS_PER_UNIT   { 81.5, 81.5, 400.69, 108 }
+	
+Max feed rate, 613-618
 ---------------
 	/**
 	 * Default Max Feed Rate (mm/s)
@@ -69,8 +69,8 @@ Max feed rate, 534-539
 	 *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
 	 */
 	#define DEFAULT_MAX_FEEDRATE          { 400, 400, 2, 45 }
-
-Max accceleration, 541-547
+	
+Max accceleration, 620-626
 ---------------
 	/**
 	 * Default Max Acceleration (change/s) change = mm/s
@@ -79,8 +79,8 @@ Max accceleration, 541-547
 	 *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
 	 */
 	#define DEFAULT_MAX_ACCELERATION      { 5000, 5000, 50, 5000 }
-
-Default acceleration, 549-559
+	
+Default acceleration, 628-638
 ---------------
 	/**
 	 * Default Acceleration (change/s) change = mm/s
@@ -94,7 +94,7 @@ Default acceleration, 549-559
 	#define DEFAULT_RETRACT_ACCELERATION  2000    // E acceleration for retracts
 	#define DEFAULT_TRAVEL_ACCELERATION   1000    // X, Y, Z acceleration for travel (non printing) moves
 
-Default jerk, 572-561
+Default jerk, 640-651
 ---------------
 	/**
 	 * Default Jerk (mm/s)
@@ -106,10 +106,10 @@ Default jerk, 572-561
 	 */
 	#define DEFAULT_XJERK                 20.0
 	#define DEFAULT_YJERK                 20.0
-	#define DEFAULT_ZJERK                  0.4
-	#define DEFAULT_EJERK                  5.0
+	#define DEFAULT_ZJERK                 0.4
+	#define DEFAULT_EJERK                 5.0
 	
-Bltouch, 637-643
+Bltouch, 727-733
 ---------------
 	/**
 	 * The BLTouch probe uses a Hall effect sensor and emulates a servo.
@@ -119,8 +119,8 @@ Bltouch, 637-643
 	  #define BLTOUCH_DELAY 375   // (ms) Enable and increase if needed
 	#endif
 
-Bltouch probe offsets, 667-688
----------------
+Bltouch probe offsets, 760-781
+---------------	
 	/**
 	 *   Z Probe to nozzle (X,Y) offset, relative to (0, 0).
 	 *   X and Y offsets must be integers.
@@ -141,10 +141,20 @@ Bltouch probe offsets, 667-688
 	 *    (0,0)
 	 */
 	#define X_PROBE_OFFSET_FROM_EXTRUDER -40  // X offset: -left  +right  [of the nozzle]
-	#define Y_PROBE_OFFSET_FROM_EXTRUDER -0  // Y offset: -front +behind [the nozzle]
-	#define Z_PROBE_OFFSET_FROM_EXTRUDER -0.9  // Z offset: -below +above  [the nozzle]
+	#define Y_PROBE_OFFSET_FROM_EXTRUDER 0  // Y offset: -front +behind [the nozzle]
+	#define Z_PROBE_OFFSET_FROM_EXTRUDER -0.9   // Z offset: -below +above  [the nozzle]
 
-Z clearance, 704-719
+Speed between probes, 786-787
+---------------
+	// X and Y axis travel speed (mm/m) between probes
+	#define XY_PROBE_SPEED 8000
+
+Feedrate for probing, 792-793
+---------------
+	// Feedrate (mm/m) for the "accurate" probe of each point
+	#define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST )
+
+Z clearance, 800-817
 ---------------
 	/**
 	 * Z probes require clearance when deploying, stowing, and moving between
@@ -160,18 +170,18 @@ Z clearance, 704-719
 	 * Example: `M851 Z-5` with a CLEARANCE of 4  =>  9mm from bed to nozzle.
 	 *     But: `M851 Z+1` with a CLEARANCE of 2  =>  2mm from bed to nozzle.
 	 */
-	#define Z_CLEARANCE_DEPLOY_PROBE   5 // Z Clearance for Deploy/Stow
-	#define Z_CLEARANCE_BETWEEN_PROBES  5 // Z Clearance between probe point
+	#define Z_CLEARANCE_DEPLOY_PROBE   3 // Z Clearance for Deploy/Stow
+	#define Z_CLEARANCE_BETWEEN_PROBES 2 // Z Clearance between probe points
+	#define Z_CLEARANCE_MULTI_PROBE    2 // Z Clearance between multiple probes
+	#define Z_AFTER_PROBING            5 // Z position after probing is done
+
 	
-Stepper directions, 750-765
+Stepper directions, 850-862
 ---------------
-		// Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
+	// Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
 	#define INVERT_X_DIR true
 	#define INVERT_Y_DIR true
 	#define INVERT_Z_DIR false
-
-	// Enable this option for Toshiba stepper drivers
-	//#define CONFIG_STEPPERS_TOSHIBA
 
 	// @section extruder
 
@@ -182,9 +192,8 @@ Stepper directions, 750-765
 	#define INVERT_E3_DIR false
 	#define INVERT_E4_DIR false
 	
-Bed size and travel limits, 782-792
+Bed size and travel limits, 881-891
 ---------------
-
 	// The size of the print bed
 	#define X_BED_SIZE 196
 	#define Y_BED_SIZE 192
@@ -197,7 +206,7 @@ Bed size and travel limits, 782-792
 	#define Y_MAX_POS Y_BED_SIZE
 	#define Z_MAX_POS 185
 	
-Bed levelling, 839-876
+Bed levelling, 943-980
 ---------------
 	/**
 	 * Choose one of the options below to enable G29 Bed Leveling. The parameters
@@ -212,9 +221,31 @@ Bed levelling, 839-876
 	//#define AUTO_BED_LEVELING_BILINEAR
 	//#define AUTO_BED_LEVELING_UBL
 	//#define MESH_BED_LEVELING
-
-Bed levelling options, 912-923
+	
+Leveling disabled, 982-986
 ---------------
+	/**
+	 * Normally G28 leaves leveling disabled on completion. Enable
+	 * this option to have G28 restore the prior leveling state.
+	 */
+	#define RESTORE_LEVELING_AFTER_G28
+
+Enable mesh validation, 1007-1016
+---------------
+	  /**
+	   * Enable the G26 Mesh Validation Pattern tool.
+	   */
+	  #define G26_MESH_VALIDATION
+	  #if ENABLED(G26_MESH_VALIDATION)
+	    #define MESH_TEST_NOZZLE_SIZE    0.4  // (mm) Diameter of primary nozzle.
+	    #define MESH_TEST_LAYER_HEIGHT   1.5  // (mm) Default layer height for the G26 Mesh Validation Tool.
+	    #define MESH_TEST_HOTEND_TEMP  230.0  // (°C) Default nozzle temperature for the G26 Mesh Validation Tool.
+	    #define MESH_TEST_BED_TEMP      80.0  // (°C) Default bed temperature for the G26 Mesh Validation Tool.
+	  #endif
+
+Options for linear leveling, 1020-1052
+---------------
+	#if ENABLED(AUTO_BED_LEVELING_LINEAR) || ENABLED(AUTO_BED_LEVELING_BILINEAR)
 
 	  // Set the number of grid points per dimension.
 	  #define GRID_MAX_POINTS_X 3
@@ -222,19 +253,41 @@ Bed levelling options, 912-923
 
 	  // Set the boundaries for probing (where the probe can reach).
 	  #define LEFT_PROBE_BED_POSITION 10
-	  #define RIGHT_PROBE_BED_POSITION 150
+	  #define RIGHT_PROBE_BED_POSITION (X_BED_SIZE - MIN_PROBE_EDGE - X_PROBE_OFFSET_FROM_EXTRUDER) 
 	  #define FRONT_PROBE_BED_POSITION 10
-	  #define BACK_PROBE_BED_POSITION 190
+	  //#define BACK_PROBE_BED_POSITION 143
+	  #define BACK_PROBE_BED_POSITION (Y_BED_SIZE - MIN_PROBE_EDGE + Y_PROBE_OFFSET_FROM_EXTRUDER -3)
 
-	  // The Z probe minimum outer margin (to validate G29 parameters).
-	  #define MIN_PROBE_EDGE 8
+	  // Probe along the Y axis, advancing X after each column
+	  //#define PROBE_Y_FIRST
 
-Move between bed corners, 1004-1005
+	  #if ENABLED(AUTO_BED_LEVELING_BILINEAR)
+
+	    // Beyond the probed grid, continue the implied tilt?
+	    // Default is to maintain the height of the nearest edge.
+	    #define EXTRAPOLATE_BEYOND_GRID
+
+	    //
+	    // Experimental Subdivision of the grid by Catmull-Rom method.
+	    // Synthesizes intermediate points to produce a more detailed mesh.
+	    //
+	    //#define ABL_BILINEAR_SUBDIVISION
+	    #if ENABLED(ABL_BILINEAR_SUBDIVISION)
+	      // Number of subdivisions between probe points
+	      #define BILINEAR_SUBDIVISIONS 3
+	    #endif
+
+	  #endif
+
+Level bed corners, 1013-1017
 ---------------
-	// Add a menu item to move between bed corners for manual bed adjustment
-	#define LEVEL_BED_CORNERS
+	#if ENABLED(LEVEL_BED_CORNERS)
+	  #define LEVEL_CORNERS_INSET 30    // (mm) An inset for corner leveling
+	  #define LEVEL_CORNERS_Z_HOP  4.0  // (mm) Move nozzle up before moving between corners
+	  //#define LEVEL_CENTER_TOO        // Move to the center after the last corner
+	#endif
 
-Z safe homing, 1025-1034
+Z safe homing, 1137-1156
 ---------------
 	// Use "Z Safe Homing" to avoid homing with a Z probe outside the bed area.
 	//
@@ -246,28 +299,58 @@ Z safe homing, 1025-1034
 	// - Prevent Z homing when the Z probe is outside bed area.
 	//
 	#define Z_SAFE_HOMING
-
-M500 and M501 commands, 1111-1118
+	
+Homing speeds, 1153-1155
 ---------------
+	// Homing speeds (mm/m)
+	#define HOMING_FEEDRATE_XY (60*60)
+	#define HOMING_FEEDRATE_Z  (60*60)
+
+M500 and M501 commands, 1221-1230
+---------------
+	// EEPROM
+	//
 	// The microcontroller can store settings in the EEPROM, e.g. max velocity...
 	// M500 - stores parameters in EEPROM
 	// M501 - reads parameters from EEPROM (if you need reset them after you changed them temporarily).
 	// M502 - reverts to the default "factory settings".  You still need to store them in EEPROM afterwards if you want to.
 	//
 	#define EEPROM_SETTINGS // Enable for M500 and M501 commands
+	//#define DISABLE_M503    // Saves ~2700 bytes of PROGMEM. Disable for release!
+	#define EEPROM_CHITCHAT   // Give feedback on EEPROM commands. Disable to save PROGMEM.
 
-Preheating, 1147-1154
+Host keepalive, 1233-1240
+---------------
+	// Host Keepalive
+	//
+	// When enabled Marlin will send a busy status message to the host
+	// every couple of seconds when it can't accept commands.
+	//
+	#define HOST_KEEPALIVE_FEATURE        // Disable this if your host doesn't like keepalive messages
+	#define DEFAULT_KEEPALIVE_INTERVAL 4  // Number of seconds between "busy" messages. Set with M113.
+	#define BUSY_WHILE_HEATING            // Some hosts require "busy" messages even during heating
+
+Preheating, 2559-1266
 ---------------
 	// Preheat Constants
 	#define PREHEAT_1_TEMP_HOTEND 180
-	#define PREHEAT_1_TEMP_BED     70
+	#define PREHEAT_1_TEMP_BED     60
 	#define PREHEAT_1_FAN_SPEED     0 // Value from 0 to 255
 
 	#define PREHEAT_2_TEMP_HOTEND 225
 	#define PREHEAT_2_TEMP_BED    90
 	#define PREHEAT_2_FAN_SPEED     0 // Value from 0 to 255
+	
+Nozzle park, 1281-1286
+---------------
+	#if ENABLED(NOZZLE_PARK_FEATURE)
+	  // Specify a park position as { X, Y, Z }
+	  #define NOZZLE_PARK_POINT { (X_MIN_POS + 10), (Y_MAX_POS - 10), 20 }
+	  #define NOZZLE_PARK_XY_FEEDRATE 100   // X and Y axes feedrate in mm/s (also used for delta printers Z axis)
+	  #define NOZZLE_PARK_Z_FEEDRATE 100      // Z axis feedrate in mm/s (not used for delta printers)
+	#endif
 
-SD support, 1325-1332
+SD support, 1424-1431
 ---------------
 	/**
 	 * SD CARD
@@ -278,9 +361,8 @@ SD support, 1325-1332
 	 */
 	#define SDSUPPORT
 
-Feedback sound, 1405-1413
+Feedback sound, 1514-1521
 ---------------
-	//
 	// The duration and frequency for the UI feedback sound.
 	// Set these to 0 to disable audio feedback in the LCD menus.
 	//
@@ -290,27 +372,30 @@ Feedback sound, 1405-1413
 	#define LCD_FEEDBACK_FREQUENCY_DURATION_MS 0
 	#define LCD_FEEDBACK_FREQUENCY_HZ 0
 
-Smart controller, 1464-1470
+Smart controller, 1533
 ---------------
-	//
-	// RepRapDiscount Smart Controller.
-	// http://reprap.org/wiki/RepRapDiscount_Smart_Controller
-	//
-	// Note: Usually sold with a white PCB.
-	//
-	#define REPRAP_DISCOUNT_SMART_CONTROLLER
+	#define REPRAP_DISCOUNT_SMART_CONTROLLERR
 
-
-Marlin_main.cpp
-===============
-
-Line 13206
+SAV OLEd support, 1637-1643
 ---------------
-	        planner.buffer_line(delta[A_AXIS], delta[B_AXIS], raw[Z_AXIS], raw[E_AXIS], _feedrate_mm_s, active_extruder);
-	        
-	        
-Version.h
-===============
+	// SAV OLEd LCD module support using either SSD1306 or SH1106 based LCD modules
+	//
+	//#define SAV_3DGLCD
+	#if ENABLED(SAV_3DGLCD)
+	  //#define U8GLIB_SSD1306
+	  #define U8GLIB_SH1106
+	#endif
+	
+Number of servos, 1920-1927
+---------------
+	/**
+	 * Number of servos
+	 *
+	 * For some servo-related options NUM_SERVOS will be set automatically.
+	 * Set this manually if there are extra servos needing manual control.
+	 * Leave undefined or set to 0 to entirely disable the servo subsystem.
+	 */
+	#define NUM_SERVOS 1 // Servo index starts with 0 for M280 command
 
 
 pins_GT2560_REV_A_PLUS.h
