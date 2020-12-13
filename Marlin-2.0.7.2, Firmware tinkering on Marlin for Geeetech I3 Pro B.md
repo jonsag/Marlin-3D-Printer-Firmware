@@ -344,8 +344,8 @@ Returns
 Save new value to EEPROM  
 >M500
 
-Higher value -> larger distance from bed  
-The above example will increase the distance from the bed, ie. the gap between nozzle and bed will be larger.  
+Higher value -> smaller distance from bed  
+The above example will decrease the distance from the bed, ie. the gap between nozzle and bed will be smaller.  
 
 This can of course also be done from the LCD-display.  
 
