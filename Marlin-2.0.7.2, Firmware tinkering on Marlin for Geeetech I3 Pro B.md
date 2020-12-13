@@ -1,6 +1,6 @@
-#Firmware tinkering on Marlin-2.0.7.2 for Geeetech I3 Pro B
+## Firmware tinkering on Marlin-2.0.7.2 for Geeetech I3 Pro B
 
-Line numbers are apprimate and after the changes  
+Line numbers are sometimes not exact, and after the changes  
 
 Makefile
 ----------
