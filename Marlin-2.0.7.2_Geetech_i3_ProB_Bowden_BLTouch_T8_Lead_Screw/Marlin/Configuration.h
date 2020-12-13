@@ -495,13 +495,13 @@
   #if ENABLED(PID_PARAMS_PER_HOTEND)
     // Specify between 1 and HOTENDS values per array.
     // If fewer than EXTRUDER values are provided, the last element will be repeated.
-    #define DEFAULT_Kp_LIST {  22.20,  22.20 }
-    #define DEFAULT_Ki_LIST {   1.08,   1.08 }
-    #define DEFAULT_Kd_LIST { 114.00, 114.00 }
+    #define DEFAULT_Kp_LIST {  22.39,  22.39 }
+    #define DEFAULT_Ki_LIST {   1.91,   1.91 }
+    #define DEFAULT_Kd_LIST { 65.58, 65.58 }
   #else
-    #define DEFAULT_Kp  22.20
-    #define DEFAULT_Ki   1.08
-    #define DEFAULT_Kd 114.00
+    #define DEFAULT_Kp  22.39
+    #define DEFAULT_Ki   1.91
+    #define DEFAULT_Kd 65.58
   #endif
 #endif // PIDTEMP
 
@@ -1134,7 +1134,7 @@
 #define Y_BED_SIZE 192
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
-#define X_MIN_POS 5
+#define X_MIN_POS -5
 #define Y_MIN_POS 0
 #define Z_MIN_POS 0
 #define X_MAX_POS (-X_MIN_POS+X_BED_SIZE)

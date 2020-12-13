@@ -30,6 +30,18 @@ configuration.h
 
 	#define BED_MAXTEMP      125
 
+498-  
+
+	    #define DEFAULT_Kp_LIST {  22.39,  22.39 }
+	    #define DEFAULT_Ki_LIST {   1.91,   1.91 }
+	    #define DEFAULT_Kd_LIST { 65.58, 65.58 }
+
+502-  
+
+	    #define DEFAULT_Kp  22.39
+	    #define DEFAULT_Ki   1.91
+	    #define DEFAULT_Kd 65.58
+
 596  
 
 	//#define THERMAL_PROTECTION_CHAMBER // Enable thermal protection for the heated chamber
@@ -111,7 +123,7 @@ configuration.h
 	
 1132  
 
-	#define X_MIN_POS 5
+	#define X_MIN_POS -5
 	
 1140-  
 
@@ -224,6 +236,7 @@ Other possible changes in configuration.h
 Thermal protection chamber
 ----------
 596  
+
 	#define THERMAL_PROTECTION_CHAMBER // Enable thermal protection for the heated chamber
 
 Extra probing
@@ -261,6 +274,27 @@ The skew factor must be adjusted for each printer:
 
 	  //#define XY_SKEW_FACTOR 0.0
 	  
+
+Compiling
+==========
+Download Arduino IDE 1.8.x from https://www.arduino.cc/en/software  
+
+Open Arduino IDE and open /path/to/Marlin.ini  
+
+Select board:  
+Tools -> Board: ... -> Arduino AVR Boards -> Arduino 2560 or Mega 2560  
+
+Select processor:  
+Tools -> Processor: ... -> ATmega2560 (Mega 2560)  
+ 
+Select programmer: 
+Tools -> Programmer: ... -> AVRIPS mkII  
+
+Also set port:  
+Tools -> /dev/  
+
+Compile and upload!  
+
 
 
 

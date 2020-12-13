@@ -13,6 +13,8 @@ Also set correct port, ie /dev/tty/USB0
 
 Testing and calibrating
 ===============
+View current settings and parameters  
+>M503
 
 BLTouch
 ---------------
