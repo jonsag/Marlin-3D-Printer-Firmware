@@ -234,6 +234,7 @@ configuration.h
 1901  
 
 	#define ULTRA_LCD
+
 	
 Other possible changes in configuration.h
 ==========
@@ -244,40 +245,12 @@ Thermal protection chamber
 
 	#define THERMAL_PROTECTION_CHAMBER // Enable thermal protection for the heated chamber
 
+
 Extra probing
 ----------
 1021  
 
 	#define MULTIPLE_PROBING 3
-	
-Skew factor
-==========
-
-Adapted from https://github.com/MarlinFirmware/Configurations/blob/import-2.0.x/config/examples/Geeetech/Prusa%20i3%20Pro%20B/bltouch/README.md  
-
-The skew factor must be adjusted for each printer:
-
-- First, uncomment `#define XY_SKEW_FACTOR 0.0`, if commented
-
-1445  
-
-	  #define XY_SKEW_FACTOR 0.0
-
-- Compile and upload the firmware.
-- Then, print [YACS (Yet Another Calibration Square)](https://www.thingiverse.com/thing:2563185). Hint, scale it considering a margin for brim (if used). The larger, the better to make error measurements.
-- Measure the printed part according to the comments in the example configuration file, and set `XY_DIAG_AC`, `XY_DIAG_BD` and `Y_SIDE_AD`.
-
-1439  
-
-	  #define XY_DIAG_AC 282.8427124746
-	  #define XY_DIAG_BD 282.8427124746
-	  #define XY_SIDE_AD 200
-	  
-- Last, comment `#define XY_SKEW_FACTOR 0.0` again, compile and upload.
-	
-1445  
-
-	  //#define XY_SKEW_FACTOR 0.0
 	  
 
 Compiling
@@ -301,8 +274,121 @@ Tools -> /dev/ttyUSB0 or whatever...
 Compile and upload!  
 
 
+Permissions
+==========
+Check your permissions. You need to belong to the groups tty and dialout to be able to write to the tty/USB.  
+
+Run  
+>$ groups | grep ' tty ' && echo -e "\nGreat! \nYou are a member of 'tty'" || echo -e "\nError: \nYou are not a member of the group 'tty'. \n\nCorrect with 'sudo usermod -a -G tty $USER'"
+
+and  
+>$ groups | grep ' dialout ' && echo -e "\nGreat! \nYou are a member of 'dialout'" || echo -e "\nError: \nYou are not a member of the group 'dialout'. \n\nCorrect with 'sudo usermod -a -G dialout $USER'"
+
+to check.  
+
+If you had to add yourself to any group, you must reboot to join the groups.  
+
+>$ sudo reboot
 
 
+Configuration after upload
+==========
+View current settings and parameters  
+>M503
 
 
+PID tuning
+---------------
+Start fan at 100%  
+>M106 S255
+
+Start tuning
+>M303 E0 S200 C8
+
+This will return something like:  
+
+	bias: 174 d: 80 min: 197.27 max: 202.81 Ku: 36.77 Tu: 41.62
+	Classic PIDRecv:  Kp: 22.06 Ki: 1.06 Kd: 114.78
+	PID Autotune finished! Put the last Kp, Ki and Kd constants from below into Configuration.h
+	#define  DEFAULT_Kp 22.06
+	#define  DEFAULT_Ki 1.06
+	#define  DEFAULT_Kd 114.78
+	
+Enter new values with:
+>M301 P22.06 I1.06 D114.78
+
+Save to EEPROM with:
+>M500
+
+
+Set Z-offset
+---------------
+View current offset  
+>M851
+
+Returns  
+
+	Send: M851
+	Recv: echo:Probe Z Offset: -0.95
+	Recv: ok
+	
+Set new offset  
+>M851 Z-0.8
+
+Returns  
+
+	Send: M851 Z-0.8
+	Recv: echo:Probe Z Offset: -0.80
+	Recv: ok
+	
+Save new value to EEPROM  
+>M500
+
+Higher value -> larger distance from bed  
+The above example will increase the distance from the bed, ie. the gap between nozzle and bed will be larger.  
+
+This can of course also be done from the LCD-display.  
+
+
+Skew factor
+----------
+Adapted from https://github.com/MarlinFirmware/Configurations/blob/import-2.0.x/config/examples/Geeetech/Prusa%20i3%20Pro%20B/bltouch/README.md  
+
+The skew factor must be adjusted for each printer:
+
+- First, uncomment `#define XY_SKEW_FACTOR 0.0`, if commented
+
+1445  
+
+	  #define XY_SKEW_FACTOR 0.0
+
+- Compile and upload the firmware.
+- Then, print [YACS (Yet Another Calibration Square)](https://www.thingiverse.com/thing:2563185). Hint, scale it considering a margin for brim (if used). The larger, the better to make error measurements.
+- Measure the printed part according to the comments in the example configuration file, and set `XY_DIAG_AC`, `XY_DIAG_BD` and `Y_SIDE_AD`.
+
+1439  
+
+	  #define XY_DIAG_AC 282.8427124746
+	  #define XY_DIAG_BD 282.8427124746
+	  #define XY_SIDE_AD 200
+	  
+- Comment `#define XY_SKEW_FACTOR 0.0` again.
+	
+1445  
+
+	  //#define XY_SKEW_FACTOR 0.0
+
+- Compile and upload again.
+
+Misc g-code
+==========
+BLTouch
+---------------
+>M280 P0 S10 ; pushes the pin down  
+
+>M280 P0 S90 ; pulls the pin up  
+
+>M280 P0 S120 ; Self test – keeps going until you do pin up/down or release alarm  
+
+>M280 P0 S160 ; Release alarm  
 
