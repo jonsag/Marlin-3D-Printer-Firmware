@@ -7,7 +7,13 @@ Credits to mike_truebody
 Find the original at https://www.thingiverse.com/thing:2913908  
 
 
+E3Dv6 fan mount
+----------
+fan_2.stl  
+
 Radial fan mount for E3Dv6
+
+
 ----------
 E3D_v6_BlowerAdapter.stl  
 

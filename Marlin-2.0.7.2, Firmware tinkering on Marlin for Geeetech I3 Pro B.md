@@ -102,8 +102,12 @@ configuration.h
 
 997  
 
-	#define NOZZLE_TO_PROBE_OFFSET { 20, 2, -1.6 }
-	
+	#define NOZZLE_TO_PROBE_OFFSET { 20, 2, -0.9}
+
+1001  
+
+	#define PROBING_MARGIN 10
+
 1045  
 
 	#define Z_MIN_PROBE_REPEATABILITY_TEST
@@ -116,19 +120,20 @@ configuration.h
 
 	#define INVERT_E0_DIR true
 	
-1128-  
+1133-  
 
-	#define X_BED_SIZE 196
-	#define Y_BED_SIZE 192
+	#define X_BED_SIZE 186
+	#define Y_BED_SIZE 177
 	
-1132  
+1137-  
 
-	#define X_MIN_POS -5
-	
+	#define X_MIN_POS 10
+	#define Y_MIN_POS -10
+
 1140-  
 
-	#define X_MAX_POS (-X_MIN_POS+X_BED_SIZE)
-	#define Y_MAX_POS (-Y_MIN_POS+Y_BED_SIZE)
+	#define X_MAX_POS (X_MIN_POS + X_BED_SIZE)
+	#define Y_MAX_POS (-Y_MIN_POS + Y_BED_SIZE))
 	
 1137  
 
@@ -291,7 +296,7 @@ Select programmer:
 Tools -> Programmer: ... -> AVRIPS mkII  
 
 Also set port:  
-Tools -> /dev/  
+Tools -> /dev/ttyUSB0 or whatever...  
 
 Compile and upload!  
 
