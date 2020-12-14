@@ -4,22 +4,23 @@ Further down in this document are instructions on how to trim, set up and instal
 
 Please scroll through whole document so you don't miss anything. :-)  
 
-Changes from vanilla firmware
-==========
-These are the changes from the vanilla firmware.  
-Some things will perhaps have to be adapted to fit your printer setup.  
+Instructions below are run on a Linux system.  
 
-Line numbers are sometimes not exact, and after the changes  
+
+Changes from original firmware release
+==========
+These are my changes from the vanilla firmware.  
+Some things will perhaps have to be adapted to fit your printer setup.  
 
 Makefile
 ----------
-60  
+Line 60  
 
 	HARDWARE_MOTHERBOARD ?= 1315
 	
 configuration.h
 ----------
-74  
+Line 73  
 
 	#define STRING_CONFIG_H_AUTHOR "jonsag" // Who made the changes.
 	
@@ -29,7 +30,7 @@ configuration.h
 	
 134  
 
-	#define CUSTOM_MACHINE_NAME "GeeeTech i3 Pro B"
+	#define CUSTOM_MACHINE_NAME "Geeetech i3 Pro B"
 
 426  
 
@@ -68,7 +69,7 @@ configuration.h
 744-  
 
 	#define PRO_B_WITH_LEADSCREW
-	#if ENABLED(PRO_B_WITH_LEADSCREW)       // M8 leadscrew version
+	#if ENABLED(PRO_B_WITH_LEADSCREW)       // T8 leadscrew version
 	  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 81.5, 81.5, 400.69, 108 }
 	#else                                   // M8 threaded rod version
 	  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 78.74, 78.74, 2560, 105 }
@@ -102,7 +103,7 @@ configuration.h
 
 	#define S_CURVE_ACCELERATION
 	
-908-  
+907-  
 
 	#define BLTOUCH
 	#if ENABLED(BLTOUCH)
@@ -113,26 +114,22 @@ configuration.h
 
 	#define NOZZLE_TO_PROBE_OFFSET { 20, 2, -0.9}
 
-1001  
-
-	#define PROBING_MARGIN 10
-
-1045  
+1050  
 
 	#define Z_MIN_PROBE_REPEATABILITY_TEST
 	
-1092  
+1097  
 
 	#define INVERT_X_DIR true
 
-1099  
+1104  
 
 	#define INVERT_E0_DIR true
 	
 1133-  
 
 	#define X_BED_SIZE 186
-	#define Y_BED_SIZE 177
+	#define Y_BED_SIZE 167
 	
 1137-  
 
@@ -143,44 +140,33 @@ configuration.h
 
 	#define X_MAX_POS (X_MIN_POS + X_BED_SIZE)
 	#define Y_MAX_POS (-Y_MIN_POS + Y_BED_SIZE))
-	
-1137  
-
 	#define Z_MAX_POS 185
 	
-1239  
+1244  
 
 	#define AUTO_BED_LEVELING_LINEAR
 	
-1248  
+1253  
 
 	#define RESTORE_LEVELING_AFTER_G28
 	    
-1277  
-
-	    #define MESH_TEST_BED_TEMP      65    // (°C) Default bed temperature for the G26 Mesh Validation Tool.
-	    
-1317  
+1322  
 
 	  #define MESH_EDIT_GFX_OVERLAY   // Display a graphics overlay while editing the mesh
 	  
-1347  
+1352  
 
 	#define LCD_BED_LEVELING
 	
-1356  
+1361  
 
 	#define LEVEL_BED_CORNERS
-	
-1359  
-
-	  #define LEVEL_CORNERS_INSET_LFRB { 60, 60, 60, 60 } // (mm) Left, Front, Right, Back insets
 	  
-1362  
+1367  
 
 	  #define LEVEL_CENTER_TOO              // Move to the center after the last corner
 	  
-1391  
+1396  
 
 	#define Z_SAFE_HOMING
 	
@@ -192,16 +178,16 @@ configuration.h
 
 	  #define SKEW_CORRECTION_GCODE
 	  
-1477-  
+1482-  
 
 	#define EEPROM_SETTINGS     // Persistent storage with M500 and M501
 	#define DISABLE_M503        // Saves ~2700 bytes of PROGMEM. Disable for release!
 	
-1509  
+1514  
 
 	#define PREHEAT_1_TEMP_HOTEND 205
 	
-1513  
+1518  
 
 	#define PREHEAT_2_LABEL       "PETG"
 	#define PREHEAT_2_TEMP_HOTEND 235
@@ -211,7 +197,7 @@ configuration.h
 
 	#define PRINTCOUNTER
 
-1730  
+1735  
 
 	#define SDSUPPORT
 
@@ -219,24 +205,20 @@ configuration.h
 
 	#define SD_CHECK_AND_RETRY
 
-1810  
+1815  
 
 	#define INDIVIDUAL_AXIS_HOMING_MENU
 	
-1818  
+1823  
 
 	#define SPEAKER
-
-1827  
-
-	#define LCD_FEEDBACK_FREQUENCY_DURATION_MS 0
-	#define LCD_FEEDBACK_FREQUENCY_HZ 0
 
 1832-  
 
 	#define LCD_FEEDBACK_FREQUENCY_DURATION_MS 2
 	#define LCD_FEEDBACK_FREQUENCY_HZ 5000
-1841  
+
+1846  
 
 	#define REPRAP_DISCOUNT_SMART_CONTROLLER
 	
@@ -262,9 +244,9 @@ Extra probing
 	#define MULTIPLE_PROBING 3
 	  
 
-Compiling
+Compiling and uploading on Arduino IDE
 ==========
-Download Arduino IDE 1.8.x from https://www.arduino.cc/en/software  
+Download and install Arduino IDE 1.8.x from https://www.arduino.cc/en/software  
 
 Open Arduino IDE and open /path/to/Marlin.ini  
 
@@ -274,11 +256,11 @@ Tools -> Board: ... -> Arduino AVR Boards -> Arduino 2560 or Mega 2560
 Select processor:  
 Tools -> Processor: ... -> ATmega2560 (Mega 2560)  
  
+ Set port:  
+Tools -> /dev/ttyUSB0 or whatever...  
+
 Select programmer: 
 Tools -> Programmer: ... -> AVRIPS mkII  
-
-Also set port:  
-Tools -> /dev/ttyUSB0 or whatever...  
 
 Compile and upload!  
 
@@ -300,6 +282,39 @@ If you had to add yourself to any group, you must reboot to join the groups.
 >$ sudo reboot
 
 
+Working with binary files
+==========
+Instead of directly uploading the compiled code with Arduino IDE you can save the compiled code for later upload.  
+
+
+Export firmware to binary
+----------
+ Start Arduino IDE and select file and board as above.  
+
+Click 'Sketch -> Export compiled binary'  
+
+The IDE now compiles the firmware to a binary file in the same location as your Marlin.ini.  
+It will be called Marlin.ino.mega.hex  
+
+Move the file, and rename it to something sensible.  
+
+
+avrdude
+----------
+Install avrdude if not installed.  
+>$ sudo apt install avrdude
+
+avrdude is already a part of the Arduino IDE, but this makes it easier to run.  
+
+
+Upload binary
+----------
+----- This part is under construction -----  
+
+This is NOT your command
+>$ avrdude -v -p atmega328p -c arduino -P /dev/ttyUSB0 -b 57600 -D -U flash:w:/home/pi/avrdude/Blink.hex:i
+
+
 Configuration after upload
 ==========
 View current settings and parameters  
@@ -308,48 +323,61 @@ View current settings and parameters
 
 PID tuning
 ---------------
-Start fan at 100%  
+Start parts fan at 100%  
 >M106 S255
 
-Start tuning
->M303 E0 S200 C8
+Start tuning  
+>M303 E0 S205 C8
 
-This will return something like:  
-
-	bias: 174 d: 80 min: 197.27 max: 202.81 Ku: 36.77 Tu: 41.62
-	Classic PIDRecv:  Kp: 22.06 Ki: 1.06 Kd: 114.78
-	PID Autotune finished! Put the last Kp, Ki and Kd constants from below into Configuration.h
-	#define  DEFAULT_Kp 22.06
-	#define  DEFAULT_Ki 1.06
-	#define  DEFAULT_Kd 114.78
+	[...]
+	Recv:  bias: 169 d: 85 min: 202.71 max: 207.81 Ku: 42.41 Tu: 27.20
+	Recv:  Classic PID
+	Recv:  Kp: 25.44 Ki: 1.87 Kd: 86.50
+	Recv: PID Autotune finished! Put the last Kp, Ki and Kd constants from below into Configuration.h
+	Recv: #define DEFAULT_Kp 25.44
+	Recv: #define DEFAULT_Ki 1.87
+	Recv: #define DEFAULT_Kd 86.50
+	Recv: ok
+	[...]
 	
-Enter new values with:
->M301 P22.06 I1.06 D114.78
+Enter new values  
+>M301 P25.44 I1.87 D86.50
 
-Save to EEPROM with:
+	[...]
+	Send: M301 P25.44 I1.87 D86.50
+	Recv: echo: p:25.44 i:1.87 d:86.50
+	Recv: ok
+	[...]
+	
+Save to EEPROM  
 >M500
 
+	[...]
+	Send: M500
+	Recv: echo:Settings Stored (657 bytes; crc 43001)
+	Recv: ok
+	[...]
 
 Set Z-offset
 ---------------
 View current offset  
 >M851
 
-Returns  
-
+	[...]
 	Send: M851
 	Recv: echo:Probe Z Offset: -0.95
 	Recv: ok
+	[...]
 	
 Set new offset  
 >M851 Z-0.8
 
-Returns  
-
+	[...]
 	Send: M851 Z-0.8
 	Recv: echo:Probe Z Offset: -0.80
 	Recv: ok
-	
+	[...]
+		
 Save new value to EEPROM  
 >M500
 
@@ -400,4 +428,11 @@ BLTouch
 >M280 P0 S120 ; Self test – keeps going until you do pin up/down or release alarm  
 
 >M280 P0 S160 ; Release alarm  
+
+
+Homing and levelling
+----------
+>G28 ; home all axes
+
+>G29 ; bed levelling
 
