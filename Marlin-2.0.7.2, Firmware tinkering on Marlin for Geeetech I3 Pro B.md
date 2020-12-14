@@ -242,6 +242,13 @@ Extra probing
 1021  
 
 	#define MULTIPLE_PROBING 3
+	
+Enable M503 reporting
+----------
+1483  
+
+	//#define DISABLE_M503        // Saves ~2700 bytes of PROGMEM. Disable for release!
+
 	  
 
 Compiling and uploading on Arduino IDE
@@ -259,7 +266,7 @@ Tools -> Processor: ... -> ATmega2560 (Mega 2560)
  Set port:  
 Tools -> /dev/ttyUSB0 or whatever...  
 
-Select programmer: 
+Select programmer:  
 Tools -> Programmer: ... -> AVRIPS mkII  
 
 Compile and upload!  
@@ -320,11 +327,25 @@ Configuration after upload
 View current settings and parameters  
 >M503
 
+Note:  
+Disabled on line 1483 in Configuration.h  
+
+Change to  
+
+	//#define DISABLE_M503        // Saves ~2700 bytes of PROGMEM. Disable for release!
+
+to enable again.  
+
 
 PID tuning
 ---------------
 Start parts fan at 100%  
 >M106 S255
+
+	[...]
+	Send: M106 S255
+	Recv: ok
+	[...]
 
 Start tuning  
 >M303 E0 S205 C8
