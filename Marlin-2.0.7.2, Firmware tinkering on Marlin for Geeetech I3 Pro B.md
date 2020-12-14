@@ -1,7 +1,16 @@
 ## Firmware tinkering on Marlin-2.0.7.2 for Geeetech I3 Pro B
 
+These are the changes from the vanilla firmware.  
+Some things will perhaps have to be adapted to fit your printer setup.  
+
 Line numbers are sometimes not exact, and after the changes  
 
+Further down in this document are intstructions on how to trim, set up and install firmware on your printer.  
+
+Please scroll through whole document so you don't miss anything. :-)  
+
+Changes from vanilla firmware
+==========
 Makefile
 ----------
 60  
