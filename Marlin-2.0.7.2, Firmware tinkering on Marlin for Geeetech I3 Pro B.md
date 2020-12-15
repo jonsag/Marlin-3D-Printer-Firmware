@@ -81,23 +81,13 @@ Line 73
 
 769  
 
-	#define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 100, 10000 } // { 5000, 5000, 75, 5000 }
+	#define DEFAULT_MAX_ACCELERATION      { 5000, 5000, 50, 5000 }
 	
 784-  
 
-	#define DEFAULT_ACCELERATION          3000    // X, Y, Z and E acceleration for printing moves // 1000
-	#define DEFAULT_RETRACT_ACCELERATION  3000    // E acceleration for retracts // 2000
-	#define DEFAULT_TRAVEL_ACCELERATION   3000    // X, Y, Z acceleration for travel (non printing) moves
-	
-798-  
-
-	 #define DEFAULT_XJERK                 5.0 // 10.0
-	 #define DEFAULT_YJERK                 5.0 // 10.0
-	 #define DEFAULT_ZJERK                 0.3
-	 
-810  
-
-	#define DEFAULT_EJERK    4.0  // May be used by Linear Advance // 5.0
+	#define DEFAULT_ACCELERATION          1000    // X, Y, Z and E acceleration for printing moves
+	#define DEFAULT_RETRACT_ACCELERATION  2000    // E acceleration for retracts
+	#define DEFAULT_TRAVEL_ACCELERATION   1000    // X, Y, Z acceleration for travel (non printing) moves
 	
 833  
 
