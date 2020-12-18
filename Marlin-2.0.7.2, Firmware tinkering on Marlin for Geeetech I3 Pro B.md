@@ -88,7 +88,18 @@ Line 73
 	#define DEFAULT_ACCELERATION          1000    // X, Y, Z and E acceleration for printing moves
 	#define DEFAULT_RETRACT_ACCELERATION  2000    // E acceleration for retracts
 	#define DEFAULT_TRAVEL_ACCELERATION   1000    // X, Y, Z acceleration for travel (non printing) moves
-	
+
+796  
+
+	#define CLASSIC_JERK
+
+798  
+
+	 #define DEFAULT_XJERK                 20.0
+	 #define DEFAULT_YJERK                 20.0
+	 #define DEFAULT_ZJERK                 0.4
+ 
+ 
 833  
 
 	#define S_CURVE_ACCELERATION
@@ -152,6 +163,10 @@ Line 73
 
 	#define LEVEL_BED_CORNERS
 	  
+1364  
+
+	  #define LEVEL_CORNERS_INSET_LFRB { 10, 10, 10, 10 } // (mm) Left, Front, Right, Back insets
+
 1367  
 
 	  #define LEVEL_CENTER_TOO              // Move to the center after the last corner
@@ -306,10 +321,7 @@ avrdude is already a part of the Arduino IDE, but this makes it easier to run.
 
 Upload binary
 ----------
------ This part is under construction -----  
-
-This is NOT your command
->$ avrdude -v -p atmega328p -c arduino -P /dev/ttyUSB0 -b 57600 -D -U flash:w:/home/pi/avrdude/Blink.hex:i
+>$ avrdude -v -q -p m2560 -c wiring -P /dev/ttyUSB0 -D -U flash:w:/path/to/image.hex:i
 
 
 Configuration after upload
@@ -368,6 +380,11 @@ Save to EEPROM
 	Recv: echo:Settings Stored (657 bytes; crc 43001)
 	Recv: ok
 	[...]
+	
+Other values I've tried:  
+>M301 P32.86 I2.59 D104.31; 1.1.8, with fan off  
+>M301 P33.26 I2.49 D111.03; 2.0.7.2, with fan off  
+
 
 Set Z-offset
 ---------------
@@ -376,11 +393,11 @@ View current offset
 
 	[...]
 	Send: M851
-	Recv: echo:Probe Z Offset: -0.95
+	Recv: Probe Offset X20.00 Y2.00 Z-0.90
 	Recv: ok
 	[...]
 	
-Set new offset  
+Set new Z offset  
 >M851 Z-0.8
 
 	[...]
@@ -446,4 +463,3 @@ Homing and levelling
 >G28 ; home all axes
 
 >G29 ; bed levelling
-
