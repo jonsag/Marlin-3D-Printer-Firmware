@@ -17,7 +17,8 @@ Makefile
 Line 60  
 
 	HARDWARE_MOTHERBOARD ?= 1315
-	
+  
+  
 configuration.h
 ----------
 Line 73  
@@ -98,8 +99,7 @@ Line 73
 	 #define DEFAULT_XJERK                 20.0
 	 #define DEFAULT_YJERK                 20.0
 	 #define DEFAULT_ZJERK                 0.4
- 
- 
+  
 833  
 
 	#define S_CURVE_ACCELERATION
@@ -115,119 +115,126 @@ Line 73
 
 	#define NOZZLE_TO_PROBE_OFFSET { 20, 2, -0.9}
 
-1050  
+1003-  
+
+	#define PROBING_MARGIN_LEFT 60
+	#define PROBING_MARGIN_RIGHT 0
+	#define PROBING_MARGIN_FRONT 0
+	#define PROBING_MARGIN_BACK 0
+
+1054  
 
 	#define Z_MIN_PROBE_REPEATABILITY_TEST
 	
-1097  
+1101  
 
 	#define INVERT_X_DIR true
 
-1104  
+1108  
 
 	#define INVERT_E0_DIR true
 	
-1133-  
+1137-  
 
 	#define X_BED_SIZE 186
 	#define Y_BED_SIZE 167
 	
-1137-  
+1141-  
 
 	#define X_MIN_POS 10
 	#define Y_MIN_POS -10
 
-1140-  
+1144-  
 
 	#define X_MAX_POS (X_MIN_POS + X_BED_SIZE)
 	#define Y_MAX_POS (-Y_MIN_POS + Y_BED_SIZE))
 	#define Z_MAX_POS 185
 	
-1244  
+1248  
 
 	#define AUTO_BED_LEVELING_LINEAR
 	
-1253  
+1257  
 
 	#define RESTORE_LEVELING_AFTER_G28
 	    
-1322  
+1326  
 
 	  #define MESH_EDIT_GFX_OVERLAY   // Display a graphics overlay while editing the mesh
 	  
-1352  
+1356  
 
 	#define LCD_BED_LEVELING
 	
-1361  
+1365  
 
 	#define LEVEL_BED_CORNERS
 	  
-1364  
+1369  
 
-	  #define LEVEL_CORNERS_INSET_LFRB { 10, 10, 10, 10 } // (mm) Left, Front, Right, Back insets
+	  #define LEVEL_CORNERS_INSET_LFRB { 35, 10, 15, 20 } // (mm) Left, Front, Right, Back insets
 
-1367  
+1371  
 
 	  #define LEVEL_CENTER_TOO              // Move to the center after the last corner
 	  
-1396  
+1400  
 
 	#define Z_SAFE_HOMING
 	
-1440  
+1444  
 
 	#define SKEW_CORRECTION
 	
-1464  
+1468  
 
 	  #define SKEW_CORRECTION_GCODE
 	  
-1482-  
+1486-  
 
 	#define EEPROM_SETTINGS     // Persistent storage with M500 and M501
 	#define DISABLE_M503        // Saves ~2700 bytes of PROGMEM. Disable for release!
 	
-1514  
+1518  
 
 	#define PREHEAT_1_TEMP_HOTEND 205
 	
-1518  
+1522  
 
 	#define PREHEAT_2_LABEL       "PETG"
 	#define PREHEAT_2_TEMP_HOTEND 235
 	#define PREHEAT_2_TEMP_BED    85
 
-1647  
+1651  
 
 	#define PRINTCOUNTER
 
-1735  
+1739  
 
 	#define SDSUPPORT
 
-1752  
+1756  
 
 	#define SD_CHECK_AND_RETRY
 
-1815  
+1819  
 
 	#define INDIVIDUAL_AXIS_HOMING_MENU
 	
-1823  
+1827  
 
 	#define SPEAKER
 
-1832-  
+1836-  
 
 	#define LCD_FEEDBACK_FREQUENCY_DURATION_MS 2
 	#define LCD_FEEDBACK_FREQUENCY_HZ 5000
 
-1846  
+1852  
 
 	#define REPRAP_DISCOUNT_SMART_CONTROLLER
 	
-1901  
+1905  
 
 	#define ULTRA_LCD
 
@@ -244,13 +251,13 @@ Thermal protection chamber
 
 Extra probing
 ----------
-1021  
+1025  
 
 	#define MULTIPLE_PROBING 3
 	
 Enable M503 reporting
 ----------
-1483  
+1487  
 
 	//#define DISABLE_M503        // Saves ~2700 bytes of PROGMEM. Disable for release!
 
@@ -382,8 +389,9 @@ Save to EEPROM
 	[...]
 	
 Other values I've tried:  
->M301 P32.86 I2.59 D104.31; 1.1.8, with fan off  
->M301 P33.26 I2.49 D111.03; 2.0.7.2, with fan off  
+>M301 P32.86 I2.59 D104.31 ; 1.1.8, with fan off
+>M301 P33.26 I2.49 D111.03 ; 2.0.7.2, with fan off
+>M301 P28.44 I2.12 D95.53 ; 2.0.7.2, fan on
 
 
 Set Z-offset
