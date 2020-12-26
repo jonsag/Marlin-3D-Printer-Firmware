@@ -387,11 +387,6 @@ Save to EEPROM
 	Recv: echo:Settings Stored (657 bytes; crc 43001)
 	Recv: ok
 	[...]
-	
-Other values I've tried:  
->M301 P32.86 I2.59 D104.31 ; 1.1.8, with fan off
->M301 P33.26 I2.49 D111.03 ; 2.0.7.2, with fan off
->M301 P28.44 I2.12 D95.53 ; 2.0.7.2, fan on
 
 
 Set Z-offset
@@ -471,3 +466,14 @@ Homing and levelling
 >G28 ; home all axes
 
 >G29 ; bed levelling
+
+
+Below is just for my own reference
+==========
+Other PID values I've tried:  
+>M301 P32.86 I2.59 D104.31 ; 1.1.8, with fan off
+>M301 P33.26 I2.49 D111.03 ; 2.0.7.2, with fan off
+>M301 P28.44 I2.12 D95.53 ; 2.0.7.2, fan on
+>M301 P23.26 I1.72 D78.61 ; 2.0.7.2, fan off, 200 degrees
+>M301 P23.12 I1.72 D77.65 ; 2.0.7.2, fan on, 200 degrees
+
