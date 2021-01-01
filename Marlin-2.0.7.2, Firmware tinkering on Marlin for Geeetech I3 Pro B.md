@@ -150,13 +150,21 @@ Line 73
 	#define Y_MAX_POS (-Y_MIN_POS + Y_BED_SIZE))
 	#define Z_MAX_POS 185
 	
-1248  
+1249  
 
-	#define AUTO_BED_LEVELING_LINEAR
+	#define AUTO_BED_LEVELING_BILINEAR
 	
 1257  
 
 	#define RESTORE_LEVELING_AFTER_G28
+	
+1296  
+
+	#define GRID_MAX_POINTS_X 3
+	
+1306  
+
+	#define EXTRAPOLATE_BEYOND_GRID
 	    
 1326  
 
