@@ -16,7 +16,7 @@ Uncomment line 1454 to disable my skew correction values.
 	
 Comment these out again after you've made the test print and measurements. Read more below.  
 
-(It's not really a disaster if you forget this, but you will get a more skewed print probably.)
+(It's not really a disaster if you forget this, but you will get a more skewed print probably.)  
 
 
 Other changes for different setups
@@ -25,7 +25,7 @@ Below are changes you have to do, if you have a different setup than I have.
 
 IF you DON'T have a BLTouch or clone
 ----------
-Comment out line 907
+Comment out line 907  
 
 	//#define BLTOUCH
 	
