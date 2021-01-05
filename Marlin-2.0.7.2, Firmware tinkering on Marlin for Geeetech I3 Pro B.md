@@ -6,40 +6,107 @@ Please scroll through whole document so you don't miss anything. :-)
 
 Instructions below are run on a Linux system.  
 
+Important note - MUST READ
+==========
+There is line you HAVE to change in configuraton.h before compiling this.  
 
+Uncomment line 1454 to disable my skew correction values.  
+
+	#define XY_SKEW_FACTOR 0.0
+	
+Comment these out again after you've made the test print and measurements. Read more below.  
+
+(It's not really a disaster if you forget this, but you will get a more skewed print probably.)
+
+
+Other changes for different setups
+==========
+Below are changes you have to do, if you have a different setup than I have.  
+
+IF you DON'T have a BLTouch or clone
+----------
+Comment out line 907
+
+	//#define BLTOUCH
+	
+IF you DON'T have T8 lead screws
+----------
+Comment out line 744  
+
+	//#define PRO_B_WITH_LEADSCREW
+	
+IF you have the STOCK LCD screen
+---------
+Comment out line 2000  
+
+	//#define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
+	
+and uncomment line 1850  
+
+	#define REPRAP_DISCOUNT_SMART_CONTROLLER
+	
+If you have a BLTouch or clone, not mounted in the same way I have
+----------
+Check your probe offsets on line 997  
+
+	#define NOZZLE_TO_PROBE_OFFSET { xx, yy, -zz }
+	
+Check offsets on lines 1002-  
+
+	#define PROBING_MARGIN_LEFT xx
+	#define PROBING_MARGIN_RIGHT xx
+	#define PROBING_MARGIN_FRONT yy
+	#define PROBING_MARGIN_BACK yy
+
+Check values on line 1386 for the "Level Corners" option  
+
+	  #define LEVEL_CORNERS_INSET_LFRB { xx, yy, xx, yy } // (mm) Left, Front, Right, Back insets
+	  
+	  
 Changes from original firmware release
 ==========
-These are my changes from the vanilla firmware.  
+These are my changes from the source firmware.  
 Some things will perhaps have to be adapted to fit your printer setup.  
 
 Makefile
 ----------
-Line 60  
+Line 62  
 
 	HARDWARE_MOTHERBOARD ?= 1315
   
+>Perhaps not really necessary, but this setting reflects the hardware.
   
 configuration.h
 ----------
 Line 73  
 
 	#define STRING_CONFIG_H_AUTHOR "jonsag" // Who made the changes.
+
+> My little mark.
 	
 130  
 
 	  #define MOTHERBOARD BOARD_GT2560_REV_A_PLUS
+
+>This is essential. Points directly to our hardware setup.
 	
 134  
 
 	#define CUSTOM_MACHINE_NAME "Geeetech i3 Pro B"
 
+>Puts some text on the display at startup.
+
 426  
 
 	#define TEMP_SENSOR_BED 1
 	
+>Defines that we have a heated bed, and what type of thermistor.
+
 476  
 
 	#define BED_MAXTEMP      125
+
+>Sets maximum temperature for the heated bed.
 
 498-  
 
@@ -47,26 +114,36 @@ Line 73
 	    #define DEFAULT_Ki_LIST {   1.91,   1.91 }
 	    #define DEFAULT_Kd_LIST { 65.58, 65.58 }
 
+>These are not really used, since we only have one hotend.
+
 502-  
 
-	    #define DEFAULT_Kp  22.39
-	    #define DEFAULT_Ki   1.91
-	    #define DEFAULT_Kd 65.58
+	    #define DEFAULT_Kp  23.12
+	    #define DEFAULT_Ki   1.72
+	    #define DEFAULT_Kd 77.65
+
+>These are the PID constants that will be used. However I recommend you do a PID tuning as later described.
 
 596  
 
 	//#define THERMAL_PROTECTION_CHAMBER // Enable thermal protection for the heated chamber
 	
+>If you have a heated and monitored chamber you should uncomment this.
+
 681-  
 
 	#define X_DRIVER_TYPE  A4988
 	#define Y_DRIVER_TYPE  A4988
 	#define Z_DRIVER_TYPE  A4988
 
+>Not necessary to uncomment, but this now reflects the stock Geeetech drivers.
+
 689  
 
 	#define E0_DRIVER_TYPE A4988
-	
+
+>See above.	
+
 744-  
 
 	#define PRO_B_WITH_LEADSCREW
@@ -75,24 +152,28 @@ Line 73
 	#else                                   // M8 threaded rod version
 	  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 78.74, 78.74, 2560, 105 }
 	#endif
+
+> Z steps for T8 lead screws. The added lines are just for conveniance.
 	
 756  
 
 	#define DEFAULT_MAX_FEEDRATE          { 400, 400, 2, 45 }
 
+>Recommended values. Could be tweaked.
+
 769  
 
 	#define DEFAULT_MAX_ACCELERATION      { 5000, 5000, 50, 5000 }
-	
+
+>See above.
+
 784-  
 
 	#define DEFAULT_ACCELERATION          1000    // X, Y, Z and E acceleration for printing moves
 	#define DEFAULT_RETRACT_ACCELERATION  2000    // E acceleration for retracts
 	#define DEFAULT_TRAVEL_ACCELERATION   1000    // X, Y, Z acceleration for travel (non printing) moves
 
-796  
-
-	#define CLASSIC_JERK
+>See above.
 
 798  
 
@@ -100,9 +181,13 @@ Line 73
 	 #define DEFAULT_YJERK                 20.0
 	 #define DEFAULT_ZJERK                 0.4
   
+  >If you enable CLASSIC_JERK on line 796, these are recommended values.  Could be tweaked, but not used now.
+  
 833  
 
 	#define S_CURVE_ACCELERATION
+	
+>Better acceleration curve.
 	
 907-  
 
@@ -111,101 +196,160 @@ Line 73
 	  #define BLTOUCH_DELAY 375   // (ms) Enable and increase if 	needed
 	#endif
 
+>Essential for BLTouch, and it's clones. Also sets delay.
+
 997  
 
 	#define NOZZLE_TO_PROBE_OFFSET { 20, 2, -0.9}
+>The BLTouch's offset from the nozzle. Change these to match your setup.
 
-1003-  
+1002-  
 
 	#define PROBING_MARGIN_LEFT 60
 	#define PROBING_MARGIN_RIGHT 0
 	#define PROBING_MARGIN_FRONT 0
 	#define PROBING_MARGIN_BACK 0
 
+>With these settings I avoid interfering with the clips holding down the glass plate.
+
 1054  
 
 	#define Z_MIN_PROBE_REPEATABILITY_TEST
 	
+>Enables testing of the repeatability of the level probe.
+
 1101  
 
 	#define INVERT_X_DIR true
 
+>Necessary for our hardware.
+
 1108  
 
 	#define INVERT_E0_DIR true
+
+>See above.
 	
 1137-  
 
 	#define X_BED_SIZE 186
 	#define Y_BED_SIZE 167
+
+>We could adjust this, but now I avoid interferring with the glass bed clamps.
 	
 1141-  
 
 	#define X_MIN_POS 10
 	#define Y_MIN_POS -10
 
+>See above.
+
 1144-  
 
 	#define X_MAX_POS (X_MIN_POS + X_BED_SIZE)
 	#define Y_MAX_POS (-Y_MIN_POS + Y_BED_SIZE))
 	#define Z_MAX_POS 185
-	
-1249  
 
-	#define AUTO_BED_LEVELING_BILINEAR
+>This is the conclusion of the above settings.
+	
+1248  
+
+	#define AUTO_BED_LEVELING_LINEAR
+	
+>You could also uncomment line 1249 instead, or one of the other measurement types. This makes most sense to me.
 	
 1257  
 
 	#define RESTORE_LEVELING_AFTER_G28
 	
+>Keeps the leveling data after a G28 home command.
+
 1296  
 
 	#define GRID_MAX_POINTS_X 3
 	
+>The number of probes in both directions. The value squared is the total number of probes.
+
 1306  
 
 	#define EXTRAPOLATE_BEYOND_GRID
-	    
+
+>If you went with bilinear probong above, this is a good setting.
+ 
 1326  
 
 	  #define MESH_EDIT_GFX_OVERLAY   // Display a graphics overlay while editing the mesh
-	  
+
+>For unified bed leveling this is a nice feature.
+
 1356  
 
 	#define LCD_BED_LEVELING
+
+>Adds an extra option on how to level the bed.
 	
 1365  
 
 	#define LEVEL_BED_CORNERS
-	  
-1369  
+
+>A nice feature for do some basic manual leveling.
+ 
+1368  
 
 	  #define LEVEL_CORNERS_INSET_LFRB { 35, 10, 15, 20 } // (mm) Left, Front, Right, Back insets
+
+>Keeps the hotend away from the clamps.
 
 1371  
 
 	  #define LEVEL_CENTER_TOO              // Move to the center after the last corner
-	  
+
+>Stop at center when doing the corners.
+ 
 1400  
 
 	#define Z_SAFE_HOMING
+
+>Don't let the probe get outside the bed.
 	
 1444  
 
 	#define SKEW_CORRECTION
-	
+
+>Enabling this lets your firmware make correctionsto your printer setup. If your axes are not completely perpendicular to each other, which they seldom are, these will be corrected. Read below on how to do this.
+
+1448  
+
+	  #define XY_DIAG_AC 143.55 //142.90 // should be 143.754808615 //282.8427124746
+	  #define XY_DIAG_BD 143.95 //143.10 //282.8427124746
+	  #define XY_SIDE_AD 101.65
+  
+>These are MY values AFTER I've done the test print and measuring. You will have enter YOUR values.
+
+1454  
+
+	  //#define XY_SKEW_FACTOR 0.0
+	  
+>Comment this AFTER you've done the test print and measurements.
+ 
 1468  
 
 	  #define SKEW_CORRECTION_GCODE
-	  
+
+>Extra feature for skew correction.
+ 
 1486-  
 
 	#define EEPROM_SETTINGS     // Persistent storage with M500 and M501
-	#define DISABLE_M503        // Saves ~2700 bytes of PROGMEM. Disable for release!
+
+>Enables storing of settings with G-code.
 	
 1518  
 
-	#define PREHEAT_1_TEMP_HOTEND 205
+	#define PREHEAT_1_TEMP_HOTEND 200
+	#define PREHEAT_1_TEMP_BED     65
+
+>Enter whatever values are handy for you.
 	
 1522  
 
@@ -213,62 +357,53 @@ Line 73
 	#define PREHEAT_2_TEMP_HOTEND 235
 	#define PREHEAT_2_TEMP_BED    85
 
-1651  
-
-	#define PRINTCOUNTER
+>See above.
 
 1739  
 
 	#define SDSUPPORT
 
+>We do have an SD card reader.
+
 1756  
 
 	#define SD_CHECK_AND_RETRY
 
+>This setting makes sense.
+
 1819  
 
 	#define INDIVIDUAL_AXIS_HOMING_MENU
+
+>Handy option to have.
 	
 1827  
 
 	#define SPEAKER
 
+>Our speaker is capable of putting out some different sounds.
+
 1836-  
 
-	#define LCD_FEEDBACK_FREQUENCY_DURATION_MS 2
+	#define LCD_FEEDBACK_FREQUENCY_DURATION_MS 4
 	#define LCD_FEEDBACK_FREQUENCY_HZ 5000
 
-1852  
+>I think button press beeps are nice.
+
+2000  
 
 	#define REPRAP_DISCOUNT_SMART_CONTROLLER
-	
-1905  
 
-	#define ULTRA_LCD
-
+>I have upgraded my printer with this full graphic LCD. If you still have the stock control panel, enable line 1850 instead.
 	
 Other possible changes in configuration.h
 ==========
-
-Thermal protection chamber
-----------
-596  
-
-	#define THERMAL_PROTECTION_CHAMBER // Enable thermal protection for the heated chamber
-
 
 Extra probing
 ----------
 1025  
 
 	#define MULTIPLE_PROBING 3
-	
-Enable M503 reporting
-----------
-1487  
-
-	//#define DISABLE_M503        // Saves ~2700 bytes of PROGMEM. Disable for release!
-
 	  
 
 Compiling and uploading on Arduino IDE
@@ -341,18 +476,6 @@ Upload binary
 
 Configuration after upload
 ==========
-View current settings and parameters  
->M503
-
-Note:  
-Disabled on line 1483 in Configuration.h  
-
-Change to  
-
-	//#define DISABLE_M503        // Saves ~2700 bytes of PROGMEM. Disable for release!
-
-to enable again.  
-
 
 PID tuning
 ---------------
@@ -456,8 +579,18 @@ The skew factor must be adjusted for each printer:
 
 - Compile and upload again.
 
+
 Misc g-code
 ==========
+Settings
+----------
+>M503 ; view current settings and parameters
+
+>M500 ; store settings to EEPROM
+
+>M502 ; load settings from EEPROM
+
+
 BLTouch
 ---------------
 >M280 P0 S10 ; pushes the pin down  
@@ -469,11 +602,11 @@ BLTouch
 >M280 P0 S160 ; Release alarm  
 
 
-Homing and levelling
+Homing and leveling
 ----------
 >G28 ; home all axes
 
->G29 ; bed levelling
+>G29 ; do bed leveling
 
 
 Below is just for my own reference
