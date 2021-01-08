@@ -2,9 +2,11 @@
 
 Everything in this repo is for Geeetech I3 Pro B  
 
+*************
 Refer to .md file for the Marlin version you want to use.  
 
 Read that .md file carefully, PLEASE!
+*************
 
 Below is mostly for Marlin 1.1.x  
 
