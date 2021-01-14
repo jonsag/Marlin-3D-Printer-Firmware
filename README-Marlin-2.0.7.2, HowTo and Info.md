@@ -68,6 +68,7 @@ Changes from original firmware release
 These are my changes from the source firmware.  
 Some things will perhaps have to be adapted to fit your printer setup.  
 
+
 Makefile
 ----------
 Line 62  
@@ -75,7 +76,17 @@ Line 62
 	HARDWARE_MOTHERBOARD ?= 1315
   
 >Perhaps not really necessary, but this setting reflects the hardware.
-  
+
+
+configuration_adv.h
+----------
+Line 1131  
+
+	#define LCD_SET_PROGRESS_MANUALLY
+	
+>Enables OctoPrint to update the progress bar on the LCD display. You must also install the plugin M73 Progress, <https://plugins.octoprint.org/plugins/m73progress>, for this to work. If you don't run OctoPrint, this setting will not matter.
+
+ 
 configuration.h
 ----------
 Line 73  
@@ -396,8 +407,10 @@ Line 73
 
 >I have upgraded my printer with this full graphic LCD. If you still have the stock control panel, enable line 1850 instead.
 	
+
 Other possible changes in configuration.h
 ==========
+
 
 Extra probing
 ----------
@@ -476,6 +489,7 @@ Upload binary
 
 Configuration after upload
 ==========
+
 
 PID tuning
 ---------------
