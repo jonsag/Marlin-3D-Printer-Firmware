@@ -86,7 +86,20 @@ Line 1131
 	
 >Enables OctoPrint to update the progress bar on the LCD display. You must also install the plugin M73 Progress, <https://plugins.octoprint.org/plugins/m73progress>, for this to work. If you don't run OctoPrint, this setting will not matter.
 
+ 1141  
  
+ 	#define SHOW_REMAINING_TIME       // Display estimated time to completion
+ 	
+ >Sets M73 command to display time remaining
+ 
+ 1144-  
+ 
+	    #define USE_M73_REMAINING_TIME  // Use remaining time from M73 command instead of estimation
+	    #define ROTATE_PROGRESS_DISPLAY // Display (P)rogress, (E)lapsed, and (R)emaining time
+	    
+>Smarter use of M73. Rotates views on LCD display.
+
+
 configuration.h
 ----------
 Line 73  
@@ -631,4 +644,7 @@ Other PID values I've tried:
 >M301 P28.44 I2.12 D95.53 ; 2.0.7.2, fan on
 >M301 P23.26 I1.72 D78.61 ; 2.0.7.2, fan off, 200 degrees
 >M301 P23.12 I1.72 D77.65 ; 2.0.7.2, fan on, 200 degrees
+>M301 P22.26 I1.69 D73.38 ; 2.0.7.2, fan on, new parts cooler
+
+
 
