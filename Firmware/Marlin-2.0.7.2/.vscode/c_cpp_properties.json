@@ -1,0 +1,57 @@
+//
+// !!! WARNING !!! AUTO-GENERATED FILE!
+// PLEASE DO NOT MODIFY IT AND USE "platformio.ini":
+// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags
+//
+{
+    "configurations": [
+        {
+            "name": "PlatformIO",
+            "includePath": [
+                "/home/jon/Documents/CodeWorkspace/Marlin-3D-Printer-Firmware/Firmware/Marlin-2.0.7.2/Marlin",
+                "/home/jon/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                "/home/jon/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                "/home/jon/Documents/CodeWorkspace/Marlin-3D-Printer-Firmware/Firmware/Marlin-2.0.7.2/.pio/libdeps/mega2560/U8glib-HAL/src",
+                "/home/jon/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                "/home/jon/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                "/home/jon/.platformio/packages/framework-arduino-avr/cores/arduino",
+                "/home/jon/.platformio/packages/framework-arduino-avr/variants/mega",
+                "/home/jon/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                ""
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "/home/jon/Documents/CodeWorkspace/Marlin-3D-Printer-Firmware/Firmware/Marlin-2.0.7.2/Marlin",
+                    "/home/jon/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                    "/home/jon/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                    "/home/jon/Documents/CodeWorkspace/Marlin-3D-Printer-Firmware/Firmware/Marlin-2.0.7.2/.pio/libdeps/mega2560/U8glib-HAL/src",
+                    "/home/jon/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                    "/home/jon/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                    "/home/jon/.platformio/packages/framework-arduino-avr/cores/arduino",
+                    "/home/jon/.platformio/packages/framework-arduino-avr/variants/mega",
+                    "/home/jon/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                    ""
+                ]
+            },
+            "defines": [
+                "PLATFORMIO=50203",
+                "ARDUINO_AVR_MEGA2560",
+                "__MARLIN_FIRMWARE__",
+                "F_CPU=16000000L",
+                "ARDUINO_ARCH_AVR",
+                "ARDUINO=10808",
+                "__AVR_ATmega2560__",
+                ""
+            ],
+            "cStandard": "c11",
+            "cppStandard": "c++11",
+            "compilerPath": "/home/jon/.platformio/packages/toolchain-atmelavr/bin/avr-gcc",
+            "compilerArgs": [
+                "-mmcu=atmega2560",
+                ""
+            ]
+        }
+    ],
+    "version": 4
+}
