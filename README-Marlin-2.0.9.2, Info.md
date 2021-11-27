@@ -1,4 +1,4 @@
-# Firmware on Marlin-2.0.9.2 for Geeetech I3 Pro B
+# Firmware Marlin-2.0.9.2 for Geeetech I3 Pro B
 
 Further down in this document are instructions on how to trim, set up and install firmware on your printer.  
 
