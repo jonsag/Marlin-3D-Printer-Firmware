@@ -2,8 +2,6 @@
 
 Please scroll through whole document so you don't miss anything. :-)  
 
-Instructions below are run on a Linux system.  
-
 ## Important note - MUST READ
 
 There is a line you HAVE to change in configuration.h before compiling this.  
@@ -61,7 +59,7 @@ Check values on line 1694 for the "Level Corners" option
 
 ## Compilation
 
-I use [VS Code](https://code.visualstudio.com/) with [Auto Build Marlin](https://marlinfw.org/docs/basics/auto_build_marlin.html) for compiling, but you can also do this with [Arduino IDE](https://www.arduino.cc/en/software).  
+I use [VS Code](https://code.visualstudio.com/) with [PlatformIO](https://platformio.org/) and [Auto Build Marlin](https://marlinfw.org/docs/basics/auto_build_marlin.html) for compiling, but you can also do this with [Arduino IDE](https://www.arduino.cc/en/software).  
 
 ## Misc g-code
 
