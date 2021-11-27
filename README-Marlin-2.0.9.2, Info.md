@@ -1,7 +1,5 @@
 # Firmware Marlin-2.0.9.2 for Geeetech I3 Pro B
 
-Further down in this document are instructions on how to trim, set up and install firmware on your printer.  
-
 Please scroll through whole document so you don't miss anything. :-)  
 
 Instructions below are run on a Linux system.  
@@ -60,6 +58,10 @@ Check offsets on lines 1195-
 Check values on line 1694 for the "Level Corners" option  
 
       #define LEVEL_CORNERS_INSET_LFRB { xx, yy, xx, yy } // (mm) Left, Front, Right, Back insets
+
+## Compilation
+
+I use [VS Code](https://code.visualstudio.com/) with [Auto Build Marlin](https://marlinfw.org/docs/basics/auto_build_marlin.html) for compiling, but you can also do this with [Arduino IDE](https://www.arduino.cc/en/software).  
 
 ## Misc g-code
 
