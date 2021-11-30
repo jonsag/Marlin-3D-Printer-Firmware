@@ -2,7 +2,7 @@
 
 Installation instructions are written for a Linux *buntu system.  
 
-Instructions for other systems will download from [https://code.visualstudio.com/Download](https://code.visualstudio.com/Download) and follow the guides at [https://code.visualstudio.com/docs/setup/setup-overview](https://code.visualstudio.com/docs/setup/setup-overview).  
+Other systems, download from [https://code.visualstudio.com/Download](https://code.visualstudio.com/Download) and follow the guides at [https://code.visualstudio.com/docs/setup/setup-overview](https://code.visualstudio.com/docs/setup/setup-overview).  
 
 ## Installation
 
