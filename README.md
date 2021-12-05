@@ -5,61 +5,84 @@ Everything in this repo is for Geeetech I3 Pro B
 *************
 Refer to .md file for the Marlin version you want to use.  
 
-Read that .md file carefully, PLEASE!
+Read that file carefully, PLEASE!
 *************
-
-Below is mostly for Marlin 1.1.x  
 
 ## Marlin firmware for my Geeetech i3 Pro B with GT2560A+ board  
 
-Includes BLTouch and T8 lead screws  
+Includes BLTouch, T8 lead screws and RepRap Discount Full Graphic Smart Controller.  
 
-When compiling and uploading with Arduino IDE:  
-Set board:  
-Tools > Board > Arduino Mega 2560  
-Also set correct port, ie /dev/ttyUSB0  
+I recommend using VSCode for compiling and uploading to printer.  
 
 ## Testing and calibrating
 
 View current settings and parameters  
 > M503
 
+### Set temperatures
+
+Set extruder temperature  
+> M104 S205; set temp for default extruder to 205 degrees  
+
+    Send: M104 S205
+    Recv: ok
+
+Set bed temperature  
+> M140 S65; set bed temp to 65 degrees
+
+    Send: M140 S65
+    Recv: ok
+
 ### BLTouch
 
-> M280 P0 S10 ; pushes the pin down  
-> M280 P0 S90 ; pulls the pin up  
-> M280 P0 S120 ; Self test – keeps going until you do pin up/down or release alarm  
-> M280 P0 S160 ; Release alarm  
+> M280 P0 S10; pushes the pin down  
+> M280 P0 S90; pulls the pin up  
+> M280 P0 S120; self test – keeps going until you do pin up/down or release alarm  
+> M280 P0 S160; release alarm  
 
 ### PID Tuning
 
-Start fan at 100%  
-> M106 S255
+Check current settings  
+> M503; print all settings stored in eeprom  
+
+    ...
+    Recv: echo:; Hotend PID:
+    Recv: echo:  M301 P23.12 I1.72 D77.65
+    ...  
+
+Start parts cooler fan  
+> M106 S255; set parts fan to 100%  
+
+    Send: M106 S255
+    Recv: ok
 
 Start tuning  
-> M303 E0 S200 C8
+> M303 E0 S245 C8; tune at 245 degrees 8 times  
 
-This will return something like:  
+    ...
+    Recv: PID Autotune finished! Put the last Kp, Ki and Kd constants from below into Configuration.h
+    Recv: #define DEFAULT_Kp 17.06
+    Recv: #define DEFAULT_Ki 1.05
+    Recv: #define DEFAULT_Kd 69.18
+    ...
 
-    bias: 174 d: 80 min: 197.27 max: 202.81 Ku: 36.77 Tu: 41.62
-    Classic PIDRecv:  Kp: 22.06 Ki: 1.06 Kd: 114.78
-    PID Autotune finished! Put the last Kp, Ki and Kd constants from below into Configuration.h
-    #define  DEFAULT_Kp 22.06
-    #define  DEFAULT_Ki 1.06
-    #define  DEFAULT_Kd 114.78
+Enter new values  
+> M301 P17.06 I1.05 D69.18; set PID values  
 
-Enter new values with:  
-> M301 P22.06 I1.06 D114.78
+    Send: M301 P17.06 I1.05 D69.18
+    Recv: ok
 
 Save to EEPROM with:  
-> M500
+> M500; store to eeprom  
+
+    Send: M500
+    Recv: echo:Settings Stored (627 bytes; crc 55228)
+    Recv: ok
 
 ### Steps/mm
 
 Show current settings (steps per mm etc)  
 > M501
-
-Returns  
 
     echo:V47 stored settings retrieved (614 bytes; crc 29566)
     echo:  G21    ; Units in mm
@@ -95,16 +118,12 @@ Returns
 View current offset  
 > M851
 
-Returns  
-
     Send: M851
     Recv: echo:Probe Z Offset: -0.95
     Recv: ok
 
 Set new offset  
 > M851 Z-0.8
-
-Returns  
 
     Send: M851 Z-0.8
     Recv: echo:Probe Z Offset: -0.80
@@ -126,7 +145,7 @@ Set extruder at 0:0
 Set extruder at bed center  
 > G1 X95 Y96
 
-if bed size is set to 190x192mm at lines 782-792 in Configuration.h in Marlin firmware  
+if bed size is set to 190x192mm in Configuration.h in Marlin firmware  
 
     // The size of the print bed
     #define X_BED_SIZE 190
@@ -139,3 +158,59 @@ Compensate with
     ...
     #define X_MAX_POS X_BED_SIZE
     #define Y_MAX_POS Y_BED_SIZE
+
+### Homing and leveling
+
+> G28; home all axes
+> G29; do bed leveling
+
+### Set skew factor
+
+Adapted from [https://github.com/MarlinFirmware/Configurations/blob/import-2.0.x/config/examples/Geeetech/Prusa%20i3%20Pro%20B/bltouch/README.md](https://github.com/MarlinFirmware/Configurations/blob/import-2.0.x/config/examples/Geeetech/Prusa%20i3%20Pro%20B/bltouch/README.md)  
+
+The skew factor must be adjusted for each printer:  
+
+First, uncomment `#define XY_SKEW_FACTOR 0.0`, if commented  
+
+      #define XY_SKEW_FACTOR 0.0
+
+Compile and upload the firmware.  
+Then, print [YACS (Yet Another Calibration Square)](https://www.thingiverse.com/thing:2563185).  
+Hint: scale it considering a margin for brim (if used). The larger, the better to make error measurements.  
+Measure the printed part according to the comments in the example configuration file, and set `XY_DIAG_AC`, `XY_DIAG_BD` and `Y_SIDE_AD`.  
+
+      #define XY_DIAG_AC 282.8427124746
+      #define XY_DIAG_BD 282.8427124746
+      #define XY_SIDE_AD 200
+  
+Comment `#define XY_SKEW_FACTOR 0.0` again.  
+
+      //#define XY_SKEW_FACTOR 0.0
+
+Compile and upload again.  
+
+## Permissions
+
+Check your permissions.  
+You need to belong to the groups tty and dialout to be able to write to the tty/USBx.  
+
+Run  
+>$ groups | grep ' tty ' && echo -e "\nGreat! \nYou are a member of 'tty'" || echo -e "\nError: \nYou are not a member of the group 'tty'. \n\nCorrect with 'sudo usermod -a -G tty $USER'"
+
+and  
+>$ groups | grep ' dialout ' && echo -e "\nGreat! \nYou are a member of 'dialout'" || echo -e "\nError: \nYou are not a member of the group 'dialout'. \n\nCorrect with 'sudo usermod -a -G dialout $USER'"
+
+to check.  
+
+If you had to add yourself to any group, you must reboot to join the groups.  
+
+>$ sudo reboot
+
+## avrdude
+
+Install avrdude if not installed.  
+>$ sudo apt install avrdude
+
+### Upload binary
+
+>$ avrdude -v -q -p m2560 -c wiring -P /dev/ttyUSB0 -D -U flash:w:/path/to/image.hex:i
