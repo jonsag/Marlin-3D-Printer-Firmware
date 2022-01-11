@@ -14,6 +14,12 @@ Includes BLTouch, T8 lead screws and RepRap Discount Full Graphic Smart Controll
 
 I recommend using VSCode for compiling and uploading to printer.  
 
+## Compilation
+
+I use [VS Code](https://code.visualstudio.com/) with [PlatformIO](https://platformio.org/) and [Auto Build Marlin](https://marlinfw.org/docs/basics/auto_build_marlin.html) for compiling, but you can also do this with [Arduino IDE](https://www.arduino.cc/en/software).  
+
+VS Code/PlatformIO instructions [here](<./VSCode, Installation, Compiling and Uploading.md>).  
+
 ## Testing and calibrating
 
 View current settings and parameters  
