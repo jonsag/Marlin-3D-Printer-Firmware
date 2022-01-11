@@ -415,7 +415,7 @@
  *        Software SPI will be used on those ports instead. You can force Hardware SPI on the default bus in the
  *        Configuration_adv.h file. At this time, separate Hardware SPI buses for sensors are not supported.
  *
- *  Analog Themocouple Boards
+ *  Analog Thermocouple Boards
  *  -------
  *    -4 : AD8495 with Thermocouple
  *    -1 : AD595  with Thermocouple
