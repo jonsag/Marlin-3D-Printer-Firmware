@@ -1,0 +1,13 @@
+{
+    "git.ignoreLimitWarning": true,
+    "cmake.configureOnOpen": false,
+    "cSpell.ignoreWords": [
+        "Gubbels",
+        "Zalm",
+        "grbl"
+    ],
+    "cSpell.words": [
+        "LFRB",
+        "YACS"
+    ]
+}
