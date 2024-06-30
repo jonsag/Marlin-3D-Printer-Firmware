@@ -21,7 +21,7 @@
  */
 #pragma once
 
-#define CONFIG_EXAMPLES_DIR "config/examples/Geeetech/GT2560"
+#define CONFIG_EXAMPLES_DIR "config/examples/Geeetech/Prusa i3 Pro B/bltouch"
 
 /**
  * Configuration.h
@@ -89,7 +89,7 @@
 
 // Choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
-  #define MOTHERBOARD BOARD_GT2560_REV_A
+  #define MOTHERBOARD BOARD_GT2560_REV_A_PLUS
 #endif
 
 /**
@@ -587,7 +587,7 @@
 #define HEATER_5_MAXTEMP 275
 #define HEATER_6_MAXTEMP 275
 #define HEATER_7_MAXTEMP 275
-#define BED_MAXTEMP      150
+#define BED_MAXTEMP      125
 #define CHAMBER_MAXTEMP  60
 
 /**
@@ -622,12 +622,16 @@
     // If there are fewer values, the last one applies to the remaining hotends.
     #define DEFAULT_Kp_LIST {  23.12,  23.12 }
     #define DEFAULT_Ki_LIST {   1.72,   1.72 }
-    #define DEFAULT_Kd_LIST { 77.65, 77.65 }
+    #define DEFAULT_Kd_LIST {  77.65,  77.65 }
   #else
+    #define DEFAULT_Kp  23.12
+    #define DEFAULT_Ki   1.72
+    #define DEFAULT_Kd 77.65
+
     // Geeetech MK8 Extruder
-    #define DEFAULT_Kp  12.33
-    #define DEFAULT_Ki   0.51
-    #define DEFAULT_Kd  74.50
+    //#define DEFAULT_Kp  12.33
+    //#define DEFAULT_Ki   0.51
+    //#define DEFAULT_Kd  74.50
 
     // CTC MK8 Extruder
     //#define DEFAULT_Kp  19.86
@@ -1116,7 +1120,7 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 5000, 5000, 50, 5000 }
+#define DEFAULT_MAX_ACCELERATION      { 5000, 5000, 75, 5000 }
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -1160,7 +1164,7 @@
   #endif
 #endif
 
-#define DEFAULT_EJERK    4.0  // May be used by Linear Advance
+#define DEFAULT_EJERK    5.0  // May be used by Linear Advance
 
 /**
  * Junction Deviation Factor
@@ -1220,6 +1224,7 @@
  *      - normally-open switches to 5V and D32.
  */
 //#define Z_MIN_PROBE_PIN 32 // Pin 32 is the RAMPS default
+//#define Z_MIN_PROBE_PIN 32
 
 /**
  * Probe Type
@@ -1257,9 +1262,6 @@
  * The BLTouch probe uses a Hall effect sensor and emulates a servo.
  */
 #define BLTOUCH
-#if ENABLED(BLTOUCH)
-  #define BLTOUCH_DELAY 375   // (ms) Enable and increase if needed
-#endif
 
 /**
  * MagLev V4 probe by MDD
@@ -1390,7 +1392,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { 20, 2, -0.90 }
+#define NOZZLE_TO_PROBE_OFFSET { 20, 2, -0.9 }
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
@@ -1404,7 +1406,7 @@
 #define XY_PROBE_FEEDRATE (133*60)
 
 // Feedrate (mm/min) for the first approach when double-probing (MULTIPLE_PROBING == 2)
-#define Z_PROBE_FEEDRATE_FAST (4*60)
+#define Z_PROBE_FEEDRATE_FAST (20*60)
 
 // Feedrate (mm/min) for the "accurate" probe of each point
 #define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 2)
@@ -1454,7 +1456,7 @@
  * A total of 2 does fast/slow probes with a weighted average.
  * A total of 3 or more adds more slow probes, taking the average.
  */
-//#define MULTIPLE_PROBING 2
+//#define MULTIPLE_PROBING 3
 //#define EXTRA_PROBING    1
 
 /**
@@ -1857,7 +1859,7 @@
   //========================= Unified Bed Leveling ============================
   //===========================================================================
 
-  //#define MESH_EDIT_GFX_OVERLAY   // Display a graphics overlay while editing the mesh
+  #define MESH_EDIT_GFX_OVERLAY   // Display a graphics overlay while editing the mesh
 
   #define MESH_INSET 1              // Set Mesh bounds as an inset region of the bed
   #define GRID_MAX_POINTS_X 10      // Don't use more than 15 points per axis, implementation limited.
@@ -2088,7 +2090,7 @@
 
 #define PREHEAT_2_LABEL       "PETG"
 #define PREHEAT_2_TEMP_HOTEND 235
-#define PREHEAT_2_TEMP_BED    85
+#define PREHEAT_2_TEMP_BED     85
 #define PREHEAT_2_TEMP_CHAMBER 35
 #define PREHEAT_2_FAN_SPEED     0 // Value from 0 to 255
 
@@ -3181,15 +3183,6 @@
 
 // Only power servos during movement, otherwise leave off to prevent jitter
 //#define DEACTIVATE_SERVOS_AFTER_MOVE
-
-/**
- * Customize common displays for GT2560
- */
-#if ANY(ULTIMAKERCONTROLLER, REPRAP_DISCOUNT_SMART_CONTROLLER, G3D_PANEL, MKS_MINI_12864)
-  #define SDSUPPORT   // Force SD Card support on for these displays
-#elif DISABLED(LIGHTWEIGHT_UI)
-  #define LCD_WIDTH 20 // Default is 22. For this Geeetech use 20.
-#endif
 
 // Edit servo angles with M281 and save to EEPROM with M500
 //#define EDITABLE_SERVO_ANGLES
