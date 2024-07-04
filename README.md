@@ -25,45 +25,73 @@ VS Code/PlatformIO instructions [here](<./VSCode, Installation, Compiling and Up
 View current settings and parameters  
 > M503
 
-### Set temperatures
-
-Set extruder temperature  
-> M104 S205; set temp for default extruder to 205 degrees  
-
-    Send: M104 S205
-    Recv: ok
-
-Set bed temperature  
-> M140 S65; set bed temp to 65 degrees
-
-    Send: M140 S65
-    Recv: ok
-
 ### BLTouch
 
-> M280 P0 S10; pushes the pin down  
-> M280 P0 S90; pulls the pin up  
-> M280 P0 S120; self test – keeps going until you do pin up/down or release alarm  
-> M280 P0 S160; release alarm  
+#### Set Z offset
+
+View current offset  
+> M851 ; view current Z offset
+
+    Send: M851
+    Recv: echo:Probe Z Offset: -0.95
+    Recv: ok
+
+Heat up bed
+> M140 S75 ; set bed temp to 75
+
+Home all axis
+> G28 ; home all axis
+>
+Disable software end stops  
+> M211 S0 ; disable software end stops
+
+Do the paper test and bring down Z slowly.  
+Note the Z value.  
+> M114 ; get current position
+
+Set new offset  
+> M851 Z-0.8
+
+    Send: M851 Z-0.8
+    Recv: echo:Probe Z Offset: -0.80
+    Recv: ok
+
+Save new value to EEPROM  
+> M500
+
+You can also adjust the Z offset during prints.  
+Double click the knob and adjust the offset until it's OK.  
+Then insert new value as above.  
+
+Higher value -> smaller distance from bed  
+
+#### Sensor test
+
+> M280 P0 S10 ; pushes the pin down  
+> M280 P0 S90 ; pulls the pin up  
+> M280 P0 S120 ; self test – keeps going until you do pin up/down or release alarm  
+> M280 P0 S160 ; release alarm  
 
 ### PID Tuning
 
 Check current settings  
-> M503; print all settings stored in eeprom  
+> M503 ; print all settings stored in eeprom  
 
     ...
     Recv: echo:; Hotend PID:
     Recv: echo:  M301 P23.12 I1.72 D77.65
     ...  
 
+#### Hotend PID Tuning
+
 Start parts cooler fan  
-> M106 S255; set parts fan to 100%  
+> M106 S255 ; set parts fan to 100%  
 
     Send: M106 S255
     Recv: ok
 
 Start tuning  
-> M303 E0 S245 C8; tune at 245 degrees 8 times  
+> M303 E0 S245 C8 ; tune at 245 degrees 8 times  
 
     ...
     Recv: PID Autotune finished! Put the last Kp, Ki and Kd constants from below into Configuration.h
@@ -73,17 +101,54 @@ Start tuning
     ...
 
 Enter new values  
-> M301 P17.06 I1.05 D69.18; set PID values  
+> M301 P17.06 I1.05 D69.18 ; set hotend PID values  
 
     Send: M301 P17.06 I1.05 D69.18
     Recv: ok
 
-Save to EEPROM with:  
-> M500; store to eeprom  
+Save to EEPROM  
+> M500 ; store to eeprom  
 
     Send: M500
     Recv: echo:Settings Stored (627 bytes; crc 55228)
     Recv: ok
+
+Stop parts cooler fan  
+> M106 S0 ; turn off parts fan
+
+#### Bed PID Tuning
+
+Start tuning  
+> M303 E-1 S75 C8 ; tune at 75 degrees 8 times
+
+    ...
+    Recv: #define DEFAULT_bedKp 49.22
+    Recv: #define DEFAULT_bedKi 9.39
+    Recv: #define DEFAULT_bedKd 172.04
+    ...
+
+Enter new values  
+> M304 P49.22 I9.39 D172.04 ; set bed PID values  
+
+    Recv: ok
+
+Save to EEPROM  
+> M500 ; store to eeprom
+
+### Set temperatures
+
+Set extruder temperature  
+> M104 S205 ; set temp for default extruder to 205 degrees  
+
+    Send: M104 S205
+    Recv: ok
+
+Set bed temperature  
+> M140 S65 ; set bed temp to 65 degrees
+
+    Send: M140 S65
+    Recv: ok
+    ...
 
 ### Steps/mm
 
@@ -117,28 +182,7 @@ Show current settings (steps per mm etc)
     echo:PID settings:
     echo:  M301 P22.06 I1.06 D114.78
     echo:Z-Probe Offset (mm):
-    echo:  M851 Z-0.61
-
-### Set Z-Offset
-
-View current offset  
-> M851
-
-    Send: M851
-    Recv: echo:Probe Z Offset: -0.95
-    Recv: ok
-
-Set new offset  
-> M851 Z-0.8
-
-    Send: M851 Z-0.8
-    Recv: echo:Probe Z Offset: -0.80
-    Recv: ok
-
-Save new value to EEPROM  
-> M500
-
-Higher value -> smaller distance from bed  
+    echo:  M851 Z-0.61 
 
 ### Set X/Y center
 
@@ -167,8 +211,8 @@ Compensate with
 
 ### Homing and leveling
 
-> G28; home all axes
-> G29; do bed leveling
+> G28 ; home all axes
+> G29 ; do bed leveling
 
 ### Set skew factor
 
